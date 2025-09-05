@@ -34,6 +34,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/eslint-disable-next-line prettier/prettier': 'off',
       'prettier/prettier': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn'
     },
   },
 );

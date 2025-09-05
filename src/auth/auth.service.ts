@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -15,10 +15,10 @@ export class AuthService {
   async register(userData: User) {
     // Verificar si ya existe el correo
     const existingUser = await this.userModel.findOne({ email: userData.email }).exec();
-    if (existingUser) throw new ConflictException('El correo ya está registrado');
+    if (existingUser) throw new BadRequestException('El correo ya está registrado');
 
     if (!userData.password) {
-      throw new Error('El campo password es obligatorio');
+      throw new BadRequestException('El campo password es obligatorio');
     }
     // Encriptar password
     const hashed = await bcrypt.hash(userData.password, 10);

@@ -20,7 +20,7 @@ export class AuthController {
       httpOnly: true,
       secure: false, // ⚠️ true en producción con HTTPS
       sameSite: 'strict',
-      maxAge: 24 * 60 * 60 * 1000, // 1 día
+      maxAge: Number(process.env.COOKIE_MAX_AGE) || 60 * 60 * 1000, // 1 hora
     });
 
     return { message: 'Login exitoso' };

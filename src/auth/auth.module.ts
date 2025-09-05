@@ -8,8 +8,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     JwtModule.register({
-      secret: 'jwt_secret_key', // 🔐 cámbialo y ponlo en variables de entorno
-      signOptions: { expiresIn: '1h' }, // token válido por 1 hora
+      secret: process.env.JWT_SECRET || 'default_secret',
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN || '1h' },
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
