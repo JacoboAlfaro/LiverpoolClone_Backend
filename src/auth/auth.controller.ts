@@ -8,7 +8,7 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body: any) {
-    return this.authService.register(body); // 👈 pasa directamente al servicio
+    return this.authService.register(body);
   }
 
   @Post('login')
@@ -23,12 +23,13 @@ export class AuthController {
       maxAge: Number(process.env.COOKIE_MAX_AGE) || 60 * 60 * 1000, // 1 hora
     });
 
-    return { message: 'Login exitoso' };
+    return res.json({ message: 'Login exitoso' });
+
   }
 
   @Post('logout')
   logout(@Res({ passthrough: true }) res: Response) {
     res.clearCookie('jwt');
-    return { message: 'Logout exitoso' };
+    return res.json({ message: 'Logout exitoso' });
   }
 }
