@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import express from 'express';
 
-// Creamos la app de Express
 const server = express();
 
 async function bootstrap() {
@@ -14,11 +13,14 @@ async function bootstrap() {
     credentials: true,
   });
 
-  await app.init();
+  if (process.env.NODE_ENV !== 'production') {
+    await app.listen(process.env.PORT ?? 4000);
+    console.log(`🚀 App corriendo en http://localhost:${process.env.PORT ?? 4000}`);
+  } else {
+    await app.init();
+  }
 }
 
-// Ejecutamos bootstrap
 bootstrap();
 
-// Exportamos el handler que Vercel necesita
 export default server;
