@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
   app.enableCors({
-    origin: process.env.ORIGIN ?? 'http://localhost:3000',
+    origin: process.env.ORIGIN ?? ['http://localhost:3000', 'https://liverpool-nine-dusky.vercel.app'],
     credentials: true,
   });
 
