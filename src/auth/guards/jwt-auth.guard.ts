@@ -16,6 +16,8 @@ export class JwtAuthGuard implements CanActivate {
 
     // Leer token desde cookies
     const token = req.cookies?.['jwt'];
+    console.log('Token from cookie:', req.cookies);
+
     if (!token) {
       throw new UnauthorizedException('Token no encontrado');
     }

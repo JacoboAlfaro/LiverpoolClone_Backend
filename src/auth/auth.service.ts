@@ -49,6 +49,12 @@ export class AuthService {
     return { token };
   }
 
+  async getUserByCorreo(email: string) {
+    const user = await this.userModel.findOne({ email }).exec();
+    if (!user) throw new UnauthorizedException('Usuario no encontrado');
+    return this.formatUser(user);
+  }
+
   private formatUser(user: UserDocument) {
     return {
       id: user._id.toString(),

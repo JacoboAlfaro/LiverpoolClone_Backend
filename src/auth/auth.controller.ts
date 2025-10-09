@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Res, UseGuards, Get, Req } from '@nestjs/common';
+import { Controller, Post, Body, Res, UseGuards, Get, Req, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import type { Response } from 'express';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -6,6 +6,11 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Get('email/:email')
+  async getUserByEmail(@Param('email') email: string) {
+    return this.authService.getUserByCorreo(email);
+  }
 
   @Post('register')
   async register(@Body() body: any) {
@@ -25,7 +30,6 @@ export class AuthController {
     });
 
     return res.json({ message: 'Login exitoso' });
-
   }
 
   @Post('logout')
