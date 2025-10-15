@@ -40,7 +40,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
-  getProfile(@Req() req: Request) {
-    return req['user'];
+  async getProfile(@Req() req: Request) {
+    const email = req['user']?.email;
+    return this.authService.getUserByCorreo(email);
   }
 }
