@@ -41,7 +41,15 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async getProfile(@Req() req: Request) {
-    const email = req['user']?.email;
-    return this.authService.getUserByCorreo(email);
+  const email = req['user']?.email;
+  const user = await this.authService.getUserByCorreo(email);
+
+  if (!user) {
+    return { message: 'Usuario no encontrado' };
   }
+  return {
+    ...user,
+    id_user: (user as any)._id || user.id,
+  };
+}
 }
