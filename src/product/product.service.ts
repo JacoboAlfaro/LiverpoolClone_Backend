@@ -27,6 +27,23 @@ export class ProductService {
     return product;
   }
 
+  async findByCategory(categoryId: string): Promise<ProductDocument[]> {
+    if (!isValidObjectId(categoryId)) {
+      throw new NotFoundException('ID de categoría inválido');
+    }
+
+    // Busca los productos cuyo array de categorías contenga el categoryId
+    const products = await this.productModel
+      .find({ categorias: { $in: [categoryId] } })
+      .exec();
+
+    if (products.length === 0) {
+      throw new NotFoundException('No se encontraron productos para esta categoría');
+    }
+
+    return products;
+  }
+
   async update(id: string, data: Partial<Product>): Promise<ProductDocument> {
     if (!isValidObjectId(id)) {
       throw new NotFoundException('ID de producto invalido');

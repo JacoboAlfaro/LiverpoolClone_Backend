@@ -1,6 +1,6 @@
-import {Controller, Get, Post, Patch, Delete, Body, Param} from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param} from '@nestjs/common';
 import { ProductService } from './product.service';
-import { Product } from './schemas/product.schema';
+import { Product, ProductDocument } from './schemas/product.schema';
 
 @Controller('product') 
 export class ProductController {
@@ -19,6 +19,11 @@ export class ProductController {
   @Get(':id')
   async getById(@Param('id') id: string) {
     return this.productService.findById(id);
+  }
+
+  @Get('category/:categoryId')
+  async getProductsByCategory(@Param('categoryId') categoryId: string): Promise<ProductDocument[]> {
+    return this.productService.findByCategory(categoryId);
   }
 
   @Patch(':id')

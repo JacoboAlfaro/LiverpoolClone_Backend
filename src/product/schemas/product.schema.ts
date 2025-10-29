@@ -21,7 +21,7 @@ export class Product {
   precioDescuento?: number;
 
   @Prop({ required: true })
-  categoria: string;
+  categorias: string[];
 
   @Prop({ required: true })
   imagenes: string[]; // se guardan las URL de las imagenes
