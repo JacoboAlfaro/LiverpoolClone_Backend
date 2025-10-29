@@ -62,4 +62,13 @@ export class ProductService {
     const result = await this.productModel.findByIdAndDelete(id).exec();
     if (!result) throw new NotFoundException('Producto no encontrado');
   }
+
+  async findByUser(userId: string): Promise<ProductDocument[]> {
+  if (!isValidObjectId(userId)) {
+    throw new NotFoundException('ID de usuario inválido');
+  }
+
+  const products = await this.productModel.find({ vendedorId: userId }).exec();
+  return products;
+}
 }

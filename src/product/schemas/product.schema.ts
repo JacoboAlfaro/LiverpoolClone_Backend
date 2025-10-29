@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type ProductDocument = Product & Document;
 
 @Schema({ collection: 'products', timestamps: true })
 export class Product {
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  vendedorId: Types.ObjectId;
+  
   @Prop({ required: true })
   nombre: string;
 
