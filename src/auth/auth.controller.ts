@@ -29,7 +29,7 @@ export class AuthController {
       maxAge: Number(process.env.COOKIE_MAX_AGE) || 60 * 60 * 1000, // 1 hora
     });
 
-    return res.json({ message: 'Login exitoso' });
+    return res.json({ message: 'Login exitoso', token: token });
   }
 
   @Post('logout')
