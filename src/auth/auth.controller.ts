@@ -50,6 +50,7 @@ export class AuthController {
   return {
     ...user,
     id_user: (user as any)._id || user.id,
+    _id: user.id || (user as any)._id,
   };
 }
 }
