@@ -11,6 +11,11 @@ export class ProductController {
     return this.productService.create(body);
   }
 
+  @Get('user/:userId')
+  async getProductsByUser(@Param('userId') userId: string): Promise<ProductDocument[]> {
+  return this.productService.findByUser(userId);
+}
+
   @Get()
   async findAll() {
     return this.productService.findAll();
